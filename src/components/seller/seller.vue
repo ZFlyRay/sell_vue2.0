@@ -1,6 +1,6 @@
 <template>
   <div class="seller">
-    seller
+    seller add
   </div>
 </template>
 
