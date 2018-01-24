@@ -28,15 +28,15 @@
   };
 </script>
 
-<style scoped lang="stylus" type="text/stylus" rel="stylesheet/stylus">
-  @import "./common/stylus/mixin.styl"
+<style scoped lang="sass" type="text/sass" rel="stylesheet/sass">
+  @import "common/sass/mixin"
 
   .tab
     display: flex
     width: 100%
     height: 40px
     line-height: 40px
-    border-1px(rgba(7, 17, 27, 0.1))
+    @include border-1px(rgba(7, 17, 27, 0.1))
     .tab-item
       flex: 1
       text-align: center
