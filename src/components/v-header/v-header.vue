@@ -22,7 +22,13 @@
         <i class="icon-keyboard_arrow_right"></i>
       </div>
     </div>
-    <div class="bulletin-wrapper"></div>
+    <div class="bulletin-wrapper">
+      <span class="bulletin-title"></span><span class="bulletin-text">{{seller.bulletin}}</span>
+      <i class="icon-keyboard_arrow_right"></i>
+    </div>
+    <div class="background">
+      <img :src="seller.avatar" width="100%" height="100%">
+    </div>
   </div>
 </template>
 
@@ -43,8 +49,10 @@
   @import "../../common/sass/mixin"
 
   .header
+    position: relative
     color: #fff
-    background: #999
+    background: rgba(7, 17, 27, .5)
+    overflow: hidden
     .content-wrapper
       position: relative
       padding: 24px 12px 18px 24px
@@ -117,4 +125,40 @@
           margin-left: 2px
           line-height: 24px
           font-size: 10px
+    .bulletin-wrapper
+      position: relative
+      height: 28px
+      line-height: 28px
+      padding: 0 22px 0 12px
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
+      background: rgba(7, 17, 27, .2)
+      .bulletin-title
+        display: inline-block
+        vertical-align: top
+        margin-top: 8px
+        width: 22px
+        height: 12px
+        @include bg-image('bulletin')
+        background-size: 22px 12px
+        background-repeat: no-repeat
+      .bulletin-text
+        vertical-align: top
+        margin: 0 4px
+        font-size: 10px
+      .icon-keyboard_arrow_right
+        position: absolute
+        font-size: 10px
+        right: 12px
+        top: 8px
+    .background
+      position: absolute
+      top: 0
+      left: 50%
+      transform: translateX(-50%)
+      width: 100vmin
+      height: 100vmin
+      z-index: -1
+      filter: blur(10px)
 </style>
