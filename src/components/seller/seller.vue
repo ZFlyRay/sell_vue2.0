@@ -8,6 +8,6 @@
   export default {};
 </script>
 
-<style scoped lang="stylus" type="text/stylus" rel="stylesheet/stylus">
+<style scoped lang="sass" type="text/sass" rel="stylesheet/sass">
 
 </style>

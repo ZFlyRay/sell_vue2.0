@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-header></v-header>
+    <v-header :seller="seller"></v-header>
     <div class="tab border-1px">
       <div class="tab-item">
         <router-link to="/goods">商品</router-link>
@@ -20,8 +20,22 @@
 
 <script type="text/ecmascript-6">
   import VHeader from 'components/v-header/v-header';
+  import {ERR_OK} from 'api/config';
 
   export default {
+    data() {
+      return {
+        seller: {}
+      };
+    },
+    created() {
+      this.$http.get('/api/seller').then((res) => {
+        res = res.body;
+        if (res.errno === ERR_OK) {
+          this.seller = res.data;
+        }
+      });
+    },
     components: {
       VHeader
     }
@@ -29,7 +43,7 @@
 </script>
 
 <style scoped lang="sass" type="text/sass" rel="stylesheet/sass">
-  @import "common/sass/mixin"
+  @import "./common/sass/mixin"
 
   .tab
     display: flex
