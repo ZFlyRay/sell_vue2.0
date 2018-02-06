@@ -65,7 +65,7 @@
     &.size-3
       width: 12px
       height: 12px
-      margin-right: 4px
+      margin-right: 2px
       background-size: 12px 12px
       &.decrease
         @include bg-image('decrease_3')
