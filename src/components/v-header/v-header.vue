@@ -13,7 +13,7 @@
           {{seller.description}}/{{seller.deliveryTime}}分钟到达
         </div>
         <div v-if="seller.supports" class="support">
-          <span class="icon" :class="classMap[seller.supports[0].type]"></span>
+          <icon :size="1" :type="seller.supports[0].type"></icon>
           <span class="text">{{seller.supports[0].description}}</span>
         </div>
       </div>
@@ -44,7 +44,7 @@
             </div>
             <ul v-if="seller.supports" class="supports">
               <li class="support-item" v-for="(item, index) in seller.supports" :key="index">
-                <span class="icon" :class="classMap[item.type]"></span>
+                <icon :size="2" :type="item.type"></icon>
                 <span class="text">{{item.description}}</span>
               </li>
             </ul>
@@ -67,6 +67,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import Icon from 'base/icon/icon';
   import Star from 'base/star/star';
 
   export default {
@@ -92,6 +93,7 @@
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
     },
     components: {
+      Icon,
       Star
     }
   };
@@ -139,24 +141,6 @@
           line-height: 12px
           font-size: 12px
         .support
-          .icon
-            display: inline-block
-            vertical-align: top
-            width: 12px
-            height: 12px
-            margin-right: 4px
-            background-size: 12px 12px
-            background-repeat: no-repeat
-            &.decrease
-              @include bg-image('decrease_1')
-            &.discount
-              @include bg-image('discount_1')
-            &.guarantee
-              @include bg-image('guarantee_1')
-            &.invoice
-              @include bg-image('invoice_1')
-            &.special
-              @include bg-image('special_1')
           .text
             line-height: 12px
             font-size: 10px
@@ -265,24 +249,6 @@
               font-size: 0
               &:last-child
                 margin-bottom: 0
-              .icon
-                display: inline-block
-                width: 16px
-                height: 16px
-                vertical-align: top
-                margin-right: 6px
-                background-size: 16px 16px
-                background-repeat: no-repeat
-                &.decrease
-                  @include bg-image('decrease_2')
-                &.discount
-                  @include bg-image('discount_2')
-                &.guarantee
-                  @include bg-image('guarantee_2')
-                &.invoice
-                  @include bg-image('invoice_2')
-                &.special
-                  @include bg-image('special_2')
               .text
                 line-height: 16px
                 font-size: 12px
