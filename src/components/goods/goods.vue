@@ -30,13 +30,16 @@
                   <span class="now">¥{{food.price}}</span><span class="old"
                                                                 v-show="food.oldPrice">{{food.oldPrice}}</span>
                 </div>
+                <div class="cartcontrol-wrapper">
+                  <cart-control :food="food"></cart-control>
+                </div>
               </div>
             </li>
           </ul>
         </li>
       </ul>
     </scroll>
-    <shop-cart></shop-cart>
+    <shop-cart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shop-cart>
   </div>
 </template>
 
@@ -45,6 +48,7 @@
   import Icon from 'base/icon/icon';
   import Scroll from 'base/scroll/scroll';
   import ShopCart from 'components/shopcart/shopcart';
+  import CartControl from 'base/cartcontrol/cartcontrol';
 
   export default {
     props: {
@@ -111,7 +115,8 @@
     components: {
       Icon,
       Scroll,
-      ShopCart
+      ShopCart,
+      CartControl
     }
   };
 </script>
@@ -208,4 +213,8 @@
                 text-decoration: line-through
                 font-size: 10px
                 color: rgb(147, 153, 159)
+            .cartcontrol-wrapper
+              position: absolute
+              right: 0
+              bottom: 12px
 </style>
