@@ -82,7 +82,7 @@
             if (food.count) {
               foods.push(food);
             }
-          })
+          });
         });
         return foods;
       }
