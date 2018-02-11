@@ -32,6 +32,10 @@
         type: String,
         default: DIRECTION_V
       },
+      eventPassthrough: {
+        type: Boolean,
+        default: false
+      },
       refreshDelay: {
         type: Number,
         default: 20
@@ -42,6 +46,11 @@
         this._initScroll();
       }, 20);
     },
+    computed: {
+      com_eventPassthrough() {
+        return this.eventPassthrough ? this.direction === DIRECTION_V ? DIRECTION_H : DIRECTION_V : '';
+      }
+    },
     methods: {
       _initScroll() {
         if (!this.$refs.wrapper) {
@@ -50,7 +59,8 @@
         this.scroll = new BScroll(this.$refs.wrapper, {
           probeType: this.probeType,
           click: this.click,
-          eventPassthrough: this.direction === DIRECTION_V ? DIRECTION_H : DIRECTION_V
+          // eventPassthrough: this.direction === DIRECTION_V ? DIRECTION_H : DIRECTION_V
+          eventPassthrough: this.com_eventPassthrough
         });
 
         if (this.listenScroll) {
