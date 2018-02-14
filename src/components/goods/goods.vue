@@ -28,10 +28,7 @@
                     <span class="count">月售{{food.sellCount}}份</span>
                     <span>好评率{{food.rating}}%</span>
                   </div>
-                  <div class="price">
-                    <span class="now">¥{{food.price}}</span><span class="old"
-                                                                  v-show="food.oldPrice">{{food.oldPrice}}</span>
-                  </div>
+                  <price :now="food.price" :old="_oldPriceToString(food.oldPrice)"></price>
                   <div class="cartcontrol-wrapper">
                     <cart-control @add="addFood" :food="food"></cart-control>
                   </div>
@@ -44,7 +41,7 @@
       <shop-cart ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice"
                  :min-price="seller.minPrice"></shop-cart>
     </div>
-    <food ref="food" :food="selectedFood"></food>
+    <food ref="food" :food="selectedFood" @add="addFood"></food>
   </div>
 </template>
 
@@ -55,6 +52,7 @@
   import ShopCart from 'components/shopcart/shopcart';
   import CartControl from 'base/cartcontrol/cartcontrol';
   import Food from 'components/food/food';
+  import Price from 'base/price/price';
 
   export default {
     props: {
@@ -141,6 +139,9 @@
           height += item.clientHeight;
           this.listHeight.push(height);
         }
+      },
+      _oldPriceToString(price) {
+        return String(price);
       }
     },
     components: {
@@ -148,7 +149,8 @@
       Scroll,
       ShopCart,
       CartControl,
-      Food
+      Food,
+      Price
     }
   };
 </script>
@@ -234,17 +236,6 @@
             .extra
               .count
                 margin-right: 12px
-            .price
-              line-height: 24px
-              font-weight: 700
-              .now
-                margin-right: 8px
-                font-size: 14px
-                color: rgb(240, 20, 20)
-              .old
-                text-decoration: line-through
-                font-size: 10px
-                color: rgb(147, 153, 159)
             .cartcontrol-wrapper
               position: absolute
               right: 0
