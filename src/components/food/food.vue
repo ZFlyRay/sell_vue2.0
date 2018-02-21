@@ -8,23 +8,30 @@
       </div>
       <div ref="foodImage" class="food-image" :style="bgStyle"></div>
       <scroll ref="foodContent" :data="foodArray" class="food-content">
-        <div class="content-wrapper">
-          <ul>
-            <li>
-              <h1 class="title">{{food.name}}</h1>
-              <div class="detail">
-                <span class="sell-count">月售{{food.sellCount}}份</span>
-                <span class="rating">好评率{{food.rating}}</span>
-              </div>
-              <price :now="food.price" :old="oldPriceToString"></price>
-              <div class="cartcontrol-wrapper">
-                <cart-control :food="food"></cart-control>
-              </div>
-              <div @click="addFirst" class="buy" v-show="!food.count || food.count===0">
-                加入购物车
-              </div>
-            </li>
-          </ul>
+        <div>
+          <div class="content-wrapper">
+            <h1 class="title">{{food.name}}</h1>
+            <div class="detail">
+              <span class="sell-count">月售{{food.sellCount}}份</span>
+              <span class="rating">好评率{{food.rating}}</span>
+            </div>
+            <price :now="food.price" :old="oldPriceToString"></price>
+            <div class="cartcontrol-wrapper">
+              <cart-control :food="food" @add="addFood"></cart-control>
+            </div>
+            <transition name="fade">
+              <div @click.stop.prevent="addFirst" class="buy" v-show="!food.count || food.count===0">加入购物车</div>
+            </transition>
+          </div>
+          <split v-if="food.info"></split>
+          <div class="info" v-if="food.info">
+            <h1 class="title">商品信息</h1>
+            <p class="text">{{food.info}}</p>
+          </div>
+          <split v-if="food.ratings"></split>
+          <div class="rating">
+            <h1 class="title">商品评价</h1>
+          </div>
         </div>
       </scroll>
     </div>
@@ -36,6 +43,8 @@
   import Vue from 'vue';
   import Price from 'base/price/price';
   import CartControl from 'base/cartcontrol/cartcontrol';
+  import Split from 'base/split/split';
+  import ratingSelect from 'base/ratingselect/ratingselect';
 
   export default {
     props: {
@@ -70,6 +79,9 @@
         this.$emit('add', event.target);
         Vue.set(this.food, 'count', 1);
       },
+      addFood(target) {
+        this.$emit('add', target);
+      },
       _normalizeFoodArrry() {
         let arr = [];
         let _o1 = {
@@ -91,14 +103,19 @@
       }
     },
     watch: {
-      foodArray(newVal, oldVal) {
-        console.log(newVal);
-      }
+      // foodArray(newVal, oldVal) {
+      //   console.log(newVal);
+      // },
+      // food(newVal, oldVal) {
+      //   console.log(newVal.ratings);
+      // }
     },
     components: {
       Scroll,
       Price,
-      CartControl
+      CartControl,
+      Split,
+      ratingSelect
     }
   };
 </script>
@@ -146,7 +163,9 @@
       top: 100vw
       bottom: 0
       width: 100%
+      overflow: hidden
       .content-wrapper
+        position: relative
         padding: 18px
         .title
           line-height: 14px
@@ -180,4 +199,28 @@
           font-size: 10px
           color: #fff
           background: rgb(0, 160, 220)
+          opacity: 1
+          &.fade-enter-active, &.fade-leave-active
+            transition: all .2s
+          &.fade-enter, &.fade-leave-to
+            opacity: 0
+      .info
+        padding: 18px
+        .title
+          line-height: 14px
+          margin-bottom: 6px
+          font-size: 14px
+          color: rgb(7, 17, 27)
+        .text
+          line-height: 24px
+          padding: 0 8px
+          font-size: 12px
+          color: rgb(77, 85, 93)
+      .rating
+        padding: 18px
+        .title
+          line-height: 14px
+          margin-bottom: 6px
+          font-size: 14px
+          color: rgb(7, 17, 27)
 </style>
