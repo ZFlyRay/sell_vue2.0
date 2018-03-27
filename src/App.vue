@@ -21,18 +21,24 @@
 <script type="text/ecmascript-6">
   import VHeader from 'components/v-header/v-header';
   import {ERR_OK} from 'api/config';
+  import {urlParse} from 'common/js/utils';
 
   export default {
     data() {
       return {
-        seller: {}
+        seller: {
+          id: (() => {
+            let queryParam = urlParse();
+            return queryParam.id;
+          })()
+        }
       };
     },
     created() {
-      this.$http.get('/api/seller').then((res) => {
+      this.$http.get('/api/seller?id=' + this.seller.id).then((res) => {
         res = res.body;
         if (res.errno === ERR_OK) {
-          this.seller = res.data;
+          this.seller = Object.assign({}, this.seller, res.data);
         }
       });
     },
