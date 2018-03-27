@@ -16,6 +16,14 @@
         type: Number,
         default: 1
       },
+      scrollY: {
+        type: Boolean,
+        default: true
+      },
+      scrollX: {
+        type: Boolean,
+        default: false
+      },
       click: {
         type: Boolean,
         default: false
@@ -57,6 +65,8 @@
           return;
         }
         this.scroll = new BScroll(this.$refs.wrapper, {
+          scrollY: this.scrollY,
+          scrollX: this.scrollX,
           probeType: this.probeType,
           click: this.click,
           // eventPassthrough: this.direction === DIRECTION_V ? DIRECTION_H : DIRECTION_V
